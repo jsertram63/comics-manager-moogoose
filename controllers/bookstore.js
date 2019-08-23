@@ -4,21 +4,10 @@ const Month = require('../models/month');
 
 exports.getIndex = (req, res, next) => {
   comicsArray = [];
-   Book.findAll({
-    atributes:[],
-    include:[{
-      model:Category,
-      atributes:[['name','Category']]
-    },
-    {
-      model:Month,
-      atributes:[['name','Month']]
-    }  
-    ]
-   }).then(books => {
+   Book.find()
+   .then(books => {
 
        console.log(books);
-       
        res.render('bookstore/index', {
         pageTitle: 'All Comics',
         comics:books,
@@ -26,7 +15,21 @@ exports.getIndex = (req, res, next) => {
       });  
   });
 
-
-
-
 }
+
+
+exports.getComics = (req, res, next) => {
+ 
+  const comicsId = req.params.comicsId;
+  console.log(comicsId);
+  Book.findById(comicsId)
+    .then(comics=> {
+      console.log(comics);
+      res.render('bookstore/book-details', {
+        book:comics,
+        pageTitle: "details",
+        path: '/comics'
+      });
+    })
+    .catch(err => console.log(err));
+};

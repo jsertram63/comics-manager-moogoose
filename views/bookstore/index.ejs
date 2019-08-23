@@ -8,20 +8,28 @@
                     <th scope="col">#</th>
                     <th scope="col">Hero</th>
                     <th scope="col">Titre</th>
-                    <th scope="col">Mois</th>
+                    
                     <th scope="col">Annee</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <% for (let coms of comics) {%>
+                <% comics.forEach(function(coms , index){ %>
                   <tr>
-                    <th scope="row">1</th>
-                    <td><%= coms.Category.name %></td>
-                    <td><%= coms.name %></td>
-                    <td><%= coms.Month.name %></td>
-                    <td>2019 </td>
-                  </tr>
-                 <% } %> 
+                      <th scope="row"><%= index + 1 %></th>
+                      <td><%= coms.category.name %></td>
+                      <td><%= coms.name %></td>
+                      <td>2019 </td>
+                      <td>
+                          <div class="card__actions">
+                              <a href="/bookstore/<%= coms._id %>" class="btn">Details</a>
+                             
+                          </div>
+                      </td>
+                    </tr>
+                    <% }); %>
+
+              
+                
               
                 </tbody>
               </table>

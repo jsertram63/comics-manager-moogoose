@@ -23,18 +23,15 @@
                         </optgroup>
              </select>
             </div>
-            <div class="form-control">
-                    <label for="Month">Month</label>
-            <select name="Month">
-                    <optgroup label="Select an Heroes">
-                            <% months.forEach(function(row){ %>
-                            <option value="<%= row.id %>"><%= row.name %></option>
-                            <% }) %>
-                        </optgroup>
-             </select>
-            </div>
+         
          
             <!--
+                  
+           
+           
+
+
+
             <div class="form-control">
                 <label for="imageUrl">Image URL</label>
                 <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>">

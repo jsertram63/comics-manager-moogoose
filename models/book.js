@@ -1,16 +1,31 @@
-const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
 
-const sequelize = require('../util/database');
-
-const Book = sequelize.define('book', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true
+const Schema = mongoose.Schema;
+const comicsSchema = new Schema({
+  name: {
+    type: String,
+    required: true
   },
-  name: Sequelize.STRING,
-  
-});
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  category:{
+    name: {
+      type:String,
+      required: true
+    },
+    categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
+      required: true
+    }
+  }
 
-module.exports = Book;
+
+  
+})
+
+
+module.exports = mongoose.model('Comics',comicsSchema);
