@@ -11,6 +11,7 @@ exports.getIndex = (req, res, next) => {
        res.render('bookstore/index', {
         pageTitle: 'All Comics',
         comics:books,
+        isAuthenticated: req.session.isLoggedIn,
         path: '/'
       });  
   });
@@ -28,6 +29,7 @@ exports.getComics = (req, res, next) => {
       res.render('bookstore/book-details', {
         book:comics,
         pageTitle: "details",
+        isAuthenticated: req.session.isLoggedIn,
         path: '/comics'
       });
     })

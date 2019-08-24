@@ -6,7 +6,8 @@ exports.getAddCategory = (req, res, next) => {
     res.render('admin/edit-category', {
       pageTitle: 'Add category',
       path: '/admin/add-category',
-      editing: false
+      editing: false,
+      isAuthenticated: req.session.isLoggedIn
     });
   };
 
@@ -39,6 +40,7 @@ exports.getAddComics = (req, res, next) => {
                 path: '/admin/add-comics',
                 editing: false,
                 categories:categories,
+                isAuthenticated: req.session.isLoggedIn,
               //  months:months
             });
         }).catch(err=> {

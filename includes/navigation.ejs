@@ -7,6 +7,7 @@
             <li class="main-header__item">
                 <a class="<%= path === '/' ? 'active' : '' %>" href="/">COMICS</a>
             </li>
+            <% if (isAuthenticated) { %>
             <li class="main-header__item">
                 <a class="<%= path === '/admin/add-comics' ? 'active' : '' %>" href="/admin/add-comics">ADD COMICS 
                 </a>
@@ -15,6 +16,19 @@
                 <a class="<%= path === '/admin/add-category' ? 'active' : '' %>" href="/admin/add-category">ADD HEROES
                 </a>
             </li>
+            <% } %>
         </ul>
+        <ul class="main-header__item-list">
+            <% if (!isAuthenticated) { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+                </li>
+            <% } else { %>
+                <li class="main-header__item">
+                    <form action="/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            <% } %>
     </nav>
 </header>
