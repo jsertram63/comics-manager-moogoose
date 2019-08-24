@@ -5,7 +5,8 @@ const errorController = require('./controllers/error');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-
+const csrf = require('csurf');
+const flash = require('connect-flash');
 const Category = require('./models/category');
 const Book = require('./models/book');
 const Month = require('./models/month');
@@ -20,7 +21,7 @@ const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: 'sessions'
 });
-
+const csrfProtection = csrf();
 
 //const sequelize = require('./util/database');
 // set engine views
@@ -44,9 +45,15 @@ app.use(
   })
 );
 
+app.use(csrfProtection);
+app.use(flash());
+
 app.use((req, res, next) => {
     console.log('middleware');
-    User.findById('5d5eeb2423edc48a82c7f2c1')
+    if (!req.session.user) {
+      return next();
+    }
+    User.findById(req.session.user._id)
       .then(user => {
         req.user = user;
         next();
@@ -54,18 +61,23 @@ app.use((req, res, next) => {
       .catch(err => console.log(err));
   });
 
+  app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.csrftoken = req.csrfToken();
+    console.log("TOKEN");
+    console.log(res.locals.csrftoken);
+    next();
+  });
+
+  
+
   app.use('/admin', adminRoutes);
   app.use(bookStoreRoutes);
   app.use(authRoutes);
 
 mongoose
-  .connect(
-    'mongodb+srv://lunack63:5tI6kkFSs0cYEZnp@cluster0-ytacm.mongodb.net/comics-manager?retryWrites=true&w=majority',  { useUnifiedTopology: true,useNewUrlParser: true }
-  )
-
+  .connect(MONGODB_URI)
   .then(result => {
-
-    
     User.findOne().then(user => {
       if (!user) {
         const user = new User({

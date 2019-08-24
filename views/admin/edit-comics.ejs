@@ -2,7 +2,6 @@
     <link rel="stylesheet" href="/css/forms.css">
     
 </head>
-
 <body>
    <%- include('../../includes/navigation.ejs') %>
 
@@ -41,7 +40,7 @@
                 <input type="hidden" value="<%= book.id %>" name="bookId">
             <% } %>
             -->
-
+            <input type="hidden" name="_csrf" value="<%= csrftoken %>">
             <button class="btn" type="submit"><% if (editing) { %>Update Comics<% } else { %>Add Comics<% } %></button>
         </form>
     </main>

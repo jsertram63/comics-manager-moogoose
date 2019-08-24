@@ -7,7 +7,6 @@ exports.getAddCategory = (req, res, next) => {
       pageTitle: 'Add category',
       path: '/admin/add-category',
       editing: false,
-      isAuthenticated: req.session.isLoggedIn
     });
   };
 
@@ -40,7 +39,6 @@ exports.getAddComics = (req, res, next) => {
                 path: '/admin/add-comics',
                 editing: false,
                 categories:categories,
-                isAuthenticated: req.session.isLoggedIn,
               //  months:months
             });
         }).catch(err=> {
@@ -80,7 +78,7 @@ exports.postAddComics = (req, res, next) => {
            
         })
        book.save().then(result=> {
-    
+        res.redirect('/');
        }).catch(err => {
            console.log(err);
        });
