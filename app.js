@@ -1,3 +1,4 @@
+// importation des packages 
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -7,6 +8,7 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+// importation des modeles 
 const Category = require('./models/category');
 const Book = require('./models/book');
 const Month = require('./models/month');
@@ -15,6 +17,7 @@ const User = require('./models/user');
 
 const MONGODB_URI =
   'mongodb+srv://lunack63:5tI6kkFSs0cYEZnp@cluster0-ytacm.mongodb.net/comics-manager?retryWrites=true&w=majority';
+
 
 const app = express();
 const store = new MongoDBStore({
