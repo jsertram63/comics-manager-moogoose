@@ -39,16 +39,11 @@ exports.getLogin = (req, res, next) => {
 
 exports.getSignup = (req, res, next) => {
  
-  const errors = validationResult(req);
-  if (!errors.isEmpty()){
-    console.log('ERROR')
-    console.log(errors.array);
-    return res.status(422).render('auth/signup', {
-      path: '/signup',
-      pageTitle: 'Signup',
-      errorMessage: errors.array()[0].msg
-     
-    });
+  let message = req.flash('error');
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
   }
 
   res.render('auth/signup', {
@@ -60,7 +55,7 @@ exports.getSignup = (req, res, next) => {
       password: '',
       confirmPassword: ''
     },
-    validationErrors: errors.array()
+    validationErrors: []
    
   });
 };
@@ -81,7 +76,6 @@ exports.postLogin = (req, res, next) => {
         password: password
       },
       validationErrors: []
-     
     });
   }
 

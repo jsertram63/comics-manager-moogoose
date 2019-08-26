@@ -14,9 +14,9 @@ const Book = require('./models/book');
 const Month = require('./models/month');
 const User = require('./models/user');
 
-
 const MONGODB_URI =
-  'mongodb+srv://lunack63:5tI6kkFSs0cYEZnp@cluster0-ytacm.mongodb.net/comics-manager?retryWrites=true&w=majority';
+  'mongodb+srv://login:pwd@cluster0-ytacm.mongodb.net/comics-manager?retryWrites=true&w=majority';
+
 
 
 const app = express();

@@ -18,6 +18,7 @@ router.post(
     check('email')
     .isEmail()
     .withMessage('please enter a valid Email.')
+    .normalizeEmail()
     .custom((value, {req}) => {
         //if (value === 'test@test.com'){
         //    throw new Error('this email if forbidden.');
@@ -33,7 +34,8 @@ router.post(
     body('password')
     .isLength({min:5})
     .withMessage('please enter a password with ony numbers and text at least 5 characters')
-    .isAlphanumeric(),
+    .isAlphanumeric()
+    .trim(),
     body('confirmPassword')
     .custom((value, {req}) => {
         if (value !== req.body.password){
