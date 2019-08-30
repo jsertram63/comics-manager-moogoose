@@ -44,10 +44,6 @@ exports.getAddComics = (req, res, next) => {
         }).catch(err=> {
             console.log(err);
         });
-
-        
-
-      
     })
     .catch(err=> {
         console.log(err);
@@ -61,11 +57,11 @@ exports.postAddComics = (req, res, next) => {
    const catId = req.body.category;
     const title = req.body.name;
     var categoryComics;
-    const userId = '5d5eb7e9815df3819bbc60c6';
-    
-    console.log("add comics");
-    console.log(req.body.category);
-    console.log(req.user);
+    const image = req.file;
+    const imgUrl = image.path;
+    const description = req.body.description;
+    const price = req.body.price;
+
     Category.findById(catId).then(cat => {
         categoryComics = cat._id;
         const book = new Book({
@@ -74,6 +70,9 @@ exports.postAddComics = (req, res, next) => {
                 name:cat.name,
                 categoryId:req.body.category
             },
+            imageUrl:imgUrl,
+            price:price,
+            description,
            userId:req.user
            
         })

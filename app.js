@@ -13,9 +13,10 @@ const Category = require('./models/category');
 const Book = require('./models/book');
 const Month = require('./models/month');
 const User = require('./models/user');
+const multer = require('multer');
 
 const MONGODB_URI =
-  'mongodb+srv://login:pwd@cluster0-ytacm.mongodb.net/comics-manager?retryWrites=true&w=majority';
+  'mongodb+srv://lunack63:5tI6kkFSs0cYEZnp@cluster0-ytacm.mongodb.net/comics-manager?retryWrites=true&w=majority';
 
 
 
@@ -26,6 +27,30 @@ const store = new MongoDBStore({
 });
 const csrfProtection = csrf();
 
+
+
+
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + '-' + file.originalname);
+  }
+});
+
+
+const fileFilter = (req, file, cb) => {
+  if (file.mineType === 'images/png' || file.mineType === 'images/jpg' || file.mineType === 'images/jpeg'){
+    cb(null,true);
+  }
+ else {
+  cb(null,false);
+ }
+ 
+};
+
 //const sequelize = require('./util/database');
 // set engine views
 app.set('view engine','ejs');
@@ -34,9 +59,11 @@ app.set('views','views');
 const adminRoutes = require('./routes/admin');
 const bookStoreRoutes = require('./routes/bookStore');
 const authRoutes = require('./routes/auth');
-
+app.use(multer({storage:fileStorage, filefilter: fileFilter}).single('image'));
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images',express.static(path.join(__dirname, 'images')));
 
 
 app.use(

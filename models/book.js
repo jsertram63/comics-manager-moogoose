@@ -11,6 +11,18 @@ const comicsSchema = new Schema({
     ref: 'User',
     required: true
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
   category:{
     name: {
       type:String,
