@@ -8,9 +8,10 @@ features :
     add a comics books
     list of all comics
     details of a comics
-    
-   pre-requis :
-   npm install mongoose mysql2 --save
+    login 
+    validator-field 
+    send-mail to reset pwd
+
    
    configuration with mongodb could atlas
    
